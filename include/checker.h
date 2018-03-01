@@ -30,6 +30,6 @@ struct	s_list_a
 	t_list_a 	*next;
 };
 
-extern int getlist(int ac, char **av, char **la);
+extern int getlist(int ac, char **a, char **la);
 
 #endif

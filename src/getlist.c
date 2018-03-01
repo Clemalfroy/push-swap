@@ -25,24 +25,19 @@ inline static int	bitget(uint32_t const *words, int n)
 	return (bit != 0);
 }
 
-inline int			getlist(int ac, char **av, char **lista)
+inline int			getlist(int ac, char **a, char **lista)
 {
 	int				i;
 	int64_t			nb;
 	static uint32_t tab[UINT32_MAX / 64 * 64];
-	int 			neg;
 
 	i = 0;
 	while (++i < ac)
 	{
-		neg = 1;
-		if ((*av[i] == '+' || *av[i] == '-'))
-			neg = -1;
-		if (!av[i] || !ft_stris(av[i] + (neg == -1 ? 1 : 0), ft_isdigit) ||
-			(nb = ft_atoi(av[i])) > INT_MAX || nb < INT_MIN)
+		if (!a[i] || !ft_stris(a[i] + (*a[i] == '+' || *a[i] == '-' ? 1 : 0),
+			ft_isdigit) || (nb = ft_atoi(a[i])) > INT_MAX || nb < INT_MIN)
 			return (FALSE);
-		ft_putf(1, "ju");
-		if (!bitget(tab, (unsigned int)nb) && (lista[i - 1] = av[i]))
+		if (!bitget(tab, (unsigned int)nb) && (lista[i - 1] = a[i]))
 			bitset(tab, (unsigned int)nb);
 		else
 			return (FALSE);
