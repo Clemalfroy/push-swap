@@ -14,19 +14,12 @@
 
 int		main(int argc, char **argv)
 {
-	char **la;
-
-	la = ft_malloc(sizeof(char *) * (argc - 1));
-	if (argc == 1 || !getlist(argc, argv, la))
+	if (argc == 1 || !getlist(argc, argv))
 		return (ft_retf(NOP, "Error\n"));
 
-
-
-	int i = -1;
-	while(la[++i])
-		ft_putl(1, la[i]);
-
-
+	int i = 0;
+	while(++i < argc)
+		ft_putl(1, argv[i]);
 
 	return (YEP);
 }
