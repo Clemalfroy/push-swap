@@ -28,7 +28,6 @@ inline int			getlist(int ac, char **av)
 		if (!av[i] || !ft_stris(av[i], ft_isdigit) || (nb =  ft_atoi(av[i])) > INT_MAX)
 			return (FALSE);
 		if (tab[nb] != 1 << 3)
-		{
 			if ((neg == 1 && tab[nb] == 1 << 2) || (neg == 0 && tab[nb] == 1 << 1))
 				tab[nb] = 1 << 3;
 			else if (neg == 0 && tab[nb] != 1 << 2)
@@ -37,7 +36,6 @@ inline int			getlist(int ac, char **av)
 				tab[nb] = 1 << 1;
 			else
 				return (FALSE);
-		}
 		else
 			return (FALSE);
 	}
