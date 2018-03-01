@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   getlist.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmalfroy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/26 13:44:59 by cmalfroy          #+#    #+#             */
-/*   Updated: 2018/03/01 11:09:19 by cmalfroy         ###   ########.fr       */
+/*   Created: 2018/03/01 11:18:13 by cmalfroy          #+#    #+#             */
+/*   Updated: 2018/03/01 11:18:17 by cmalfroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-#define  CHECKER_H
+#include "checker.h"
 
-# include <stdint.h>
-# include <sys/types.h>
-# include <limits.h>
-# include <unistd.h>
-# include <libft.h>
+inline static int	strisnb(char *str)
+{
+	short i;
 
-# define TRUE 1
-# define FALSE 0
+	i = -1;
+	while (str[++i])
+		if (i > 10 || ft_isdigit(str[i]))
+			return (FALSE);
+	return (TRUE);
+}
 
-extern int getlist(int ac, char **av);
+inline int			getlist(int ac, char **av)
+{
+	int		i;
 
-#endif
+	i = 0;
+	while (++i < ac)
+		if (!av[i] || !strisnb(av[i]) || ft_atoi(av[i]) > INT_MAX)
+			return (FALSE);
+	return (TRUE);
+}

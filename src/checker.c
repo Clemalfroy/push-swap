@@ -14,5 +14,7 @@
 
 int		main(int argc, char **argv)
 {
-	return (0);
+	if (!getlist(argc, argv))
+		ft_retf(NOP, "Error\n");
+	return (YEP);
 }
