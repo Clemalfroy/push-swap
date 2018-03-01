@@ -22,6 +22,14 @@
 # define TRUE 1
 # define FALSE 0
 
-extern int getlist(int ac, char **av);
+typedef struct s_list_a t_list_a;
+
+struct	s_list_a
+{
+	int 		nb;
+	t_list_a 	*next;
+};
+
+extern int getlist(int ac, char **av, char **la);
 
 #endif
