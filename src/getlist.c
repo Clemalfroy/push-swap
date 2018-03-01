@@ -12,30 +12,37 @@
 
 #include "checker.h"
 
+inline static void	bitset(uint32_t *words, int n)
+{
+	words[n / sizeof(uint32_t) * CHAR_BIT]
+		|= (1 << n % sizeof(uint32_t) * CHAR_BIT);
+}
+
+inline static int	bitget(uint32_t const *words, int n)
+{
+	uint32_t bit = words[n / sizeof(uint32_t) * CHAR_BIT] &
+		(1 << n % sizeof(uint32_t) * CHAR_BIT);
+	return (bit != 0);
+}
+
 inline int			getlist(int ac, char **av)
 {
-	int			i;
-	int64_t		nb;
-	static int 	tab[INT_MAX];
-	int 		neg;
+	int				i;
+	int64_t			nb;
+	static uint32_t tab[UINT32_MAX / 64 * 64];
+	int 			neg;
 
 	i = 0;
 	while (++i < ac)
 	{
-		neg = 0;
-		if ((*av[i] == '+' || *av[i] == '-') && (neg = 1))
+		neg = 1;
+		if ((*av[i] == '+' || *av[i] == '-') && (neg = -1))
 			av[i]++;
 		if (!av[i] || !ft_stris(av[i], ft_isdigit) || (nb =  ft_atoi(av[i])) > INT_MAX)
 			return (FALSE);
-		if (tab[nb] != 1 << 3)
-			if ((neg == 1 && tab[nb] == 1 << 2) || (neg == 0 && tab[nb] == 1 << 1))
-				tab[nb] = 1 << 3;
-			else if (neg == 0 && tab[nb] != 1 << 2)
-				tab[nb] = 1 << 2;
-			else if (neg == 1 && tab[nb] != 1 << 1)
-				tab[nb] = 1 << 1;
-			else
-				return (FALSE);
+		nb = nb * neg;
+		if (!bitget(tab, (int)nb))
+			bitset(tab, (int)nb);
 		else
 			return (FALSE);
 	}
