@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   checher.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmalfroy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 
 int		main(int argc, char **argv)
 {
-	if (argc == 1 || !getlist(argc, argv))
+	if (argc == 1 || !getlist(argc, argv) || !getactions())
 		return (ft_retf(NOP, "Error\n"));
 
 	int i = 0;

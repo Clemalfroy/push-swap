@@ -29,7 +29,7 @@ inline int			getlist(int ac, char **a)
 {
 	int				i;
 	int64_t			nb;
-	static uint32_t tab[UINT32_MAX / 64 * 64];
+	static uint32_t tab[UINT32_MAX / (64 * 64)];
 
 	i = 0;
 	while (++i < ac)
