@@ -34,7 +34,7 @@ inline void rrotateb(t_list *a, t_list *b)
 
 inline void rrotateab(t_list *a, t_list *b)
 {
-	rotatea(a, b);
-	rotateb(a, b);
+	rrotatea(a, b);
+	rrotateb(a, b);
 }
 

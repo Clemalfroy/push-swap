@@ -1,1 +1,4 @@
-CMake executable not found Configure
+/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/cmalfroy/Project/push_swap
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/cmalfroy/Project/push_swap/cmake-build-debug
