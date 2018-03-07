@@ -12,7 +12,7 @@
 
 #include "checker.h"
 
-static void		clear_dlist(t_list *lst)
+static void	clear_dlist(t_list *lst)
 {
 	t_list *next;
 	t_list *current;

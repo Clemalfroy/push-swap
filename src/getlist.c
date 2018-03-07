@@ -14,13 +14,15 @@
 
 inline static void	bitset(uint32_t *words, int n)
 {
-	words[n / sizeof(uint32_t) * CHAR_BIT]
-		|= (1 << n % sizeof(uint32_t) * CHAR_BIT);
+	words[n / sizeof(uint32_t) * CHAR_BIT] |= (1 <<
+		n % sizeof(uint32_t) * CHAR_BIT);
 }
 
 inline static int	bitget(uint32_t const *words, int n)
 {
-	uint32_t bit = words[n / sizeof(uint32_t) * CHAR_BIT] &
+	uint32_t bit;
+
+	bit = words[n / sizeof(uint32_t) * CHAR_BIT] &
 		(1 << n % sizeof(uint32_t) * CHAR_BIT);
 	return (bit != 0);
 }

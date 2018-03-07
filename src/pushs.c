@@ -12,7 +12,7 @@
 
 #include "checker.h"
 
-inline void pusha(t_list *a, t_list *b)
+inline void	pusha(t_list *a, t_list *b)
 {
 	if (b->next != b)
 	{
@@ -21,7 +21,7 @@ inline void pusha(t_list *a, t_list *b)
 	}
 }
 
-inline void pushb(t_list *a, t_list *b)
+inline void	pushb(t_list *a, t_list *b)
 {
 	if (a->next != a)
 	{

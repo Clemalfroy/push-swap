@@ -12,7 +12,7 @@
 
 #include "checker.h"
 
-inline void swapa(t_list *a, t_list *b)
+inline void	swapa(t_list *a, t_list *b)
 {
 	int tmp;
 
@@ -25,7 +25,7 @@ inline void swapa(t_list *a, t_list *b)
 	}
 }
 
-inline void swapb(t_list *a, t_list *b)
+inline void	swapb(t_list *a, t_list *b)
 {
 	int tmp;
 
@@ -38,9 +38,8 @@ inline void swapb(t_list *a, t_list *b)
 	}
 }
 
-inline void swapab(t_list *a, t_list *b)
+inline void	swapab(t_list *a, t_list *b)
 {
 	swapa(a, b);
 	swapb(a, b);
 }
-

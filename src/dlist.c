@@ -45,11 +45,11 @@ inline void	dlstaddbefore(t_list *element, int nb)
 	}
 }
 
-inline void dlstrm(t_list *lst)
+inline void	dlstrm(t_list *lst)
 {
-		lst->prev->next = lst->next;
-		lst->next->prev = lst->prev;
-		free(lst);
+	lst->prev->next = lst->next;
+	lst->next->prev = lst->prev;
+	free(lst);
 }
 
 inline void	dlstrmfirstelem(t_list *racine)

@@ -12,7 +12,7 @@
 
 #include "checker.h"
 
-inline void rrotatea(t_list *a, t_list *b)
+inline void	rrotatea(t_list *a, t_list *b)
 {
 	(void)b;
 	if (a->prev != a)
@@ -22,7 +22,7 @@ inline void rrotatea(t_list *a, t_list *b)
 	}
 }
 
-inline void rrotateb(t_list *a, t_list *b)
+inline void	rrotateb(t_list *a, t_list *b)
 {
 	(void)a;
 	if (b->prev != b)
@@ -32,9 +32,8 @@ inline void rrotateb(t_list *a, t_list *b)
 	}
 }
 
-inline void rrotateab(t_list *a, t_list *b)
+inline void	rrotateab(t_list *a, t_list *b)
 {
 	rrotatea(a, b);
 	rrotateb(a, b);
 }
-

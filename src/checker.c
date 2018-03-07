@@ -19,7 +19,7 @@ static int	dlstissort(t_list *a, t_list *b)
 	if (b->next != b)
 		return (FALSE);
 	cpa = a->next;
-	while(cpa->next != a)
+	while (cpa->next != a)
 	{
 		if (cpa->nb > cpa->next->nb)
 			return (FALSE);

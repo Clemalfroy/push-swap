@@ -14,7 +14,7 @@
 
 #define BUF_SIZE 4
 
-static void initsort(t_sort *sort)
+static void	initsort(t_sort *sort)
 {
 	sort[0] = (t_sort){ "sa", swapa };
 	sort[1] = (t_sort){ "sb", swapb };
@@ -30,12 +30,12 @@ static void initsort(t_sort *sort)
 	sort[11] = (t_sort){ NULL, NULL };
 }
 
-inline int getactions(t_list *a, t_list *b)
+inline int	getactions(t_list *a, t_list *b)
 {
 	char	buf[BUF_SIZE];
 	ssize_t	rd;
-	ssize_t i;
-	t_sort  sort[12];
+	ssize_t	i;
+	t_sort	sort[12];
 
 	initsort(sort);
 	while ((rd = read(STDIN_FILENO, buf, BUF_SIZE)) > 0)
@@ -46,7 +46,7 @@ inline int getactions(t_list *a, t_list *b)
 			if (!ft_strcmp(sort[i].sort, buf))
 			{
 				sort[i].func(a, b);
-				break;
+				break ;
 			}
 		if (i == 11)
 			return (FALSE);
