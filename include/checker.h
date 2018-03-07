@@ -41,12 +41,27 @@ struct s_sort
 };
 
 t_list			*dlstctor(void);
-inline void 	dlstrm(t_list *lst);
-inline void		dlstrmfirstelem(t_list *racine);
+extern void 	dlstrm(t_list *lst);
+extern void		dlstrmfirstelem(t_list *racine);
 extern void		dlstaddbefore(t_list *element, int nb);
 extern void		dlstaddafter(t_list *element, int nb);
+void			dlstdtor(t_list **lst);
 
 extern int 		getlist(int ac, char **av, t_list *a);
 extern int 		getactions(t_list *a, t_list *b);
+
+extern void		swapa(t_list *a, t_list *b);
+extern void		swapb(t_list *a, t_list *b);
+extern void		swapab(t_list *a, t_list *b);
+
+extern void		pusha(t_list *a, t_list *b);
+extern void		pushb(t_list *a, t_list *b);
+
+extern void		rotatea(t_list *a, t_list *b);
+extern void		rrotatea(t_list *a, t_list *b);
+extern void		rotateb(t_list *a, t_list *b);
+extern void		rrotateb(t_list *a, t_list *b);
+extern void		rotateab(t_list *a, t_list *b);
+extern void		rrotateab(t_list *a, t_list *b);
 
 #endif

@@ -1,26 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   getactions.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmalfroy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/07 12:00:01 by cmalfroy          #+#    #+#             */
+/*   Updated: 2018/03/07 12:00:03 by cmalfroy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 
 #define BUF_SIZE 4
 
-static void swap(t_list *a, t_list *b)
-{
-	(void)a;
-	(void)b;
-}
-
 static void initsort(t_sort *sort)
 {
-	sort[0] = (t_sort){ "sa", swap };
-	sort[1] = (t_sort){ "sa", swap };
-	sort[2] = (t_sort){ "sa", swap };
-	sort[3] = (t_sort){ "sa", swap };
-	sort[4] = (t_sort){ "sa", swap };
-	sort[5] = (t_sort){ "sa", swap };
-	sort[6] = (t_sort){ "sa", swap };
-	sort[7] = (t_sort){ "sa", swap };
-	sort[8] = (t_sort){ "sa", swap };
-	sort[9] = (t_sort){ "sa", swap };
-	sort[10] = (t_sort){ "sa", swap };
+	sort[0] = (t_sort){ "sa", swapa };
+	sort[1] = (t_sort){ "sb", swapb };
+	sort[2] = (t_sort){ "ss", swapab };
+	sort[3] = (t_sort){ "pa", pusha };
+	sort[4] = (t_sort){ "pb", pushb };
+	sort[5] = (t_sort){ "ra", rotatea };
+	sort[6] = (t_sort){ "rb", rotateb };
+	sort[7] = (t_sort){ "rr", rotateab };
+	sort[8] = (t_sort){ "rra", rrotatea };
+	sort[9] = (t_sort){ "rrb", rrotateb };
+	sort[10] = (t_sort){ "rrr", rrotateab };
 	sort[11] = (t_sort){ NULL, NULL };
 }
 

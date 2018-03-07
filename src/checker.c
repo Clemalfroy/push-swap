@@ -28,6 +28,12 @@ static int	dlstissort(t_list *a, t_list *b)
 	return (TRUE);
 }
 
+static void	freeall(t_list *a, t_list *b)
+{
+	dlstdtor(&a);
+	dlstdtor(&b);
+}
+
 int			main(int argc, char **argv)
 {
 	t_list *a;
@@ -36,10 +42,14 @@ int			main(int argc, char **argv)
 	a = dlstctor();
 	b = dlstctor();
 	if (argc == 1 || !getlist(argc, argv, a) || !getactions(a, b))
+	{
+		freeall(a, b);
 		return (ft_retf(NOP, "Error\n"));
+	}
 	if (dlstissort(a, b))
 		ft_putl(1, "OK");
 	else
 		ft_putl(1, "KO");
+	freeall(a, b);
 	return (YEP);
 }
