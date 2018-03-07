@@ -38,7 +38,7 @@ LIB_NAME = $(LIBS)
 endif
 3TH_NAME = libft
 SRC_NAME = \
-    checker.c getlist.c getactions.c\
+    checker.c getlist.c getactions.c dlist.c \
 
 3TH = $(addprefix $(3TH_PATH)/, $(3TH_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))

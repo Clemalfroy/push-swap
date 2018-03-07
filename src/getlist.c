@@ -25,7 +25,7 @@ inline static int	bitget(uint32_t const *words, int n)
 	return (bit != 0);
 }
 
-inline int			getlist(int ac, char **a)
+inline int			getlist(int ac, char **av, t_list *a)
 {
 	int				i;
 	int64_t			nb;
@@ -34,13 +34,14 @@ inline int			getlist(int ac, char **a)
 	i = 0;
 	while (++i < ac)
 	{
-		if (!a[i] || !ft_stris(a[i] + (*a[i] == '+' || *a[i] == '-' ? 1 : 0),
-			ft_isdigit) || (nb = ft_atoi(a[i])) > INT_MAX || nb < INT_MIN)
+		if (!av[i] || !ft_stris(av[i] + (*av[i] == '+' || *av[i] == '-' ? 1 :
+			0), ft_isdigit) || (nb = ft_atoi(av[i])) > INT_MAX || nb < INT_MIN)
 			return (FALSE);
 		if (!bitget(tab, (unsigned int)nb))
 			bitset(tab, (unsigned int)nb);
 		else
 			return (FALSE);
+		dlstaddbefore(a, (int)nb);
 	}
 	return (TRUE);
 }

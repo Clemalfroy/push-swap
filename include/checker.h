@@ -22,16 +22,31 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef struct s_list_a t_list_a;
+typedef struct	s_list t_list;
+typedef struct	s_sort t_sort;
 
-struct	s_list_a
+typedef void	(funcsort)(t_list *a, t_list *b);
+
+struct s_list
 {
 	int 		nb;
-	t_list_a 	*next;
+	t_list		*next;
+	t_list		*prev;
 };
 
+struct s_sort
+{
+	char		*sort;
+	funcsort	*func;
+};
 
-extern int getlist(int ac, char **a);
-extern int getactions();
+t_list			*dlstctor(void);
+inline void 	dlstrm(t_list *lst);
+inline void		dlstrmfirstelem(t_list *racine);
+extern void		dlstaddbefore(t_list *element, int nb);
+extern void		dlstaddafter(t_list *element, int nb);
+
+extern int 		getlist(int ac, char **av, t_list *a);
+extern int 		getactions(t_list *a, t_list *b);
 
 #endif

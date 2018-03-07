@@ -12,14 +12,34 @@
 
 #include "checker.h"
 
-int		main(int argc, char **argv)
+static int	dlstissort(t_list *a, t_list *b)
 {
-	if (argc == 1 || !getlist(argc, argv) || !getactions())
+	t_list *cpa;
+
+	if (b->next != b)
+		return (FALSE);
+	cpa = a->next;
+	while(cpa->next != a)
+	{
+		if (cpa->nb > cpa->next->nb)
+			return (FALSE);
+		cpa = cpa->next;
+	}
+	return (TRUE);
+}
+
+int			main(int argc, char **argv)
+{
+	t_list *a;
+	t_list *b;
+
+	a = dlstctor();
+	b = dlstctor();
+	if (argc == 1 || !getlist(argc, argv, a) || !getactions(a, b))
 		return (ft_retf(NOP, "Error\n"));
-
-	int i = 0;
-	while(++i < argc)
-		ft_putl(1, argv[i]);
-
+	if (dlstissort(a, b))
+		ft_putl(1, "OK");
+	else
+		ft_putl(1, "KO");
 	return (YEP);
 }
