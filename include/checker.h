@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef CHECKER_H
-#define  CHECKER_H
+# define CHECKER_H
 
 # include <stdint.h>
 # include <sys/types.h>
@@ -19,23 +19,21 @@
 # include <unistd.h>
 # include <libft.h>
 
-#include "dlist.h"
-#include "actions.h"
+# include "dlist.h"
+# include "actions.h"
+# include "getinfo.h"
 
 # define TRUE 1
 # define FALSE 0
 
-typedef struct	s_sort t_sort;
+typedef struct s_sort	t_sort;
 
 typedef void	(funcsort)(t_list *a, t_list *b);
 
-struct s_sort
+struct	s_sort
 {
 	char		*sort;
 	funcsort	*func;
 };
-
-void			freeall(t_list *a, t_list *b);
-extern int 		getlist(int ac, char **av, t_list *a);
 
 #endif

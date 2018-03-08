@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "getinfo.h"
 
-void	freeall(t_list *a, t_list *b)
+void				freeall(t_list *a, t_list *b)
 {
 	dlstdtor(&a);
 	dlstdtor(&b);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.h                                          :+:      :+:    :+:   */
+/*   getinfo.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmalfroy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,23 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ACTIONS_H
-# define ACTIONS_H
+#ifndef GETINFO_H
+# define GETINFO_H
 
 # include <dlist.h>
 
-extern void		swapa(t_list *a, t_list *b);
-extern void		swapb(t_list *a, t_list *b);
-extern void		swapab(t_list *a, t_list *b);
+# define TRUE 1
+# define FALSE 0
 
-extern void		pusha(t_list *a, t_list *b);
-extern void		pushb(t_list *a, t_list *b);
-
-extern void		rotatea(t_list *a, t_list *b);
-extern void		rrotatea(t_list *a, t_list *b);
-extern void		rotateb(t_list *a, t_list *b);
-extern void		rrotateb(t_list *a, t_list *b);
-extern void		rotateab(t_list *a, t_list *b);
-extern void		rrotateab(t_list *a, t_list *b);
+void			freeall(t_list *a, t_list *b);
+extern int		getlist(int ac, char **av, t_list *a);
 
 #endif

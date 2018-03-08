@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #ifndef DLIST_H
-# define  DLIST_H
+# define DLIST_H
 
 # include <libft.h>
 
-typedef struct	s_list t_list;
+typedef struct s_list	t_list;
 
-struct s_list
+struct			s_list
 {
-	int 		nb;
+	int			nb;
 	t_list		*next;
 	t_list		*prev;
 };
 
 t_list			*dlstctor(void);
-extern void 	dlstrm(t_list *lst);
+extern void		dlstrm(t_list *lst);
 extern void		dlstrmfirstelem(t_list *racine);
 extern void		dlstaddbefore(t_list *element, int nb);
 extern void		dlstaddafter(t_list *element, int nb);
