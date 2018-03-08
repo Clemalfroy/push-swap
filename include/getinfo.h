@@ -20,5 +20,6 @@
 
 void			freeall(t_list *a, t_list *b);
 extern int		getlist(int ac, char **av, t_list *a);
+extern int		dlstissort(t_list *a, t_list *b);
 
 #endif

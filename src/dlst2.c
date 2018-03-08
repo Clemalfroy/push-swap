@@ -32,3 +32,9 @@ void		dlstdtor(t_list **lst)
 	free(*lst);
 	*lst = NULL;
 }
+
+inline void	dlstrmlastelem(t_list *racine)
+{
+	if (racine->prev != racine)
+		dlstrm(racine->prev);
+}

@@ -17,9 +17,11 @@ int 		main(int argc, char **argv)
 	t_list *a;
 	t_list *b;
 
+	if (argc == 1)
+		return (0);
 	a = dlstctor();
 	b = dlstctor();
-	if (argc == 1 || !getlist(argc, argv, a))
+	if (!getlist(argc, argv, a))
 	{
 		freeall(a, b);
 		return (ft_retf(NOP, "Error\n"));
