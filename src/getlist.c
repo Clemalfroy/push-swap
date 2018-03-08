@@ -12,6 +12,12 @@
 
 #include "checker.h"
 
+void	freeall(t_list *a, t_list *b)
+{
+	dlstdtor(&a);
+	dlstdtor(&b);
+}
+
 inline static void	bitset(uint32_t *words, int n)
 {
 	words[n / (INT_MAX)] |= (1 << n % (INT_MAX));

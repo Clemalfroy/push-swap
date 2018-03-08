@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "actions.h"
 
 inline void	swapa(t_list *a, t_list *b)
 {

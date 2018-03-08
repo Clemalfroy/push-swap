@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "actions.h"
 
 inline void	pusha(t_list *a, t_list *b)
 {

@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   dlist.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmalfroy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/07 12:22:47 by cmalfroy          #+#    #+#             */
-/*   Updated: 2018/03/07 12:22:49 by cmalfroy         ###   ########.fr       */
+/*   Created: 2018/03/08 11:56:10 by cmalfroy          #+#    #+#             */
+/*   Updated: 2018/03/08 11:56:12 by cmalfroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "actions.h"
+#ifndef DLIST_H
+# define  DLIST_H
 
-inline void	rotatea(t_list *a, t_list *b)
-{
-	(void)b;
-	if (a->next != a)
-	{
-		dlstaddbefore(a, a->next->nb);
-		dlstrm(a->next);
-	}
-}
+# include <libft.h>
 
-inline void	rotateb(t_list *a, t_list *b)
-{
-	(void)a;
-	if (b->next != b)
-	{
-		dlstaddbefore(b, b->next->nb);
-		dlstrm(b->next);
-	}
-}
+typedef struct	s_list t_list;
 
-inline void	rotateab(t_list *a, t_list *b)
+struct s_list
 {
-	rotatea(a, b);
-	rotateb(a, b);
-}
+	int 		nb;
+	t_list		*next;
+	t_list		*prev;
+};
+
+t_list			*dlstctor(void);
+extern void 	dlstrm(t_list *lst);
+extern void		dlstrmfirstelem(t_list *racine);
+extern void		dlstaddbefore(t_list *element, int nb);
+extern void		dlstaddafter(t_list *element, int nb);
+void			dlstdtor(t_list **lst);
+
+#endif

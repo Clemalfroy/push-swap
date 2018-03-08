@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "actions.h"
 
 inline void	rrotatea(t_list *a, t_list *b)
 {

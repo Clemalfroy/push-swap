@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "dlist.h"
 
 static void	clear_dlist(t_list *lst)
 {
