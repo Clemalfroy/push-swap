@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmalfroy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/26 13:44:59 by cmalfroy          #+#    #+#             */
-/*   Updated: 2018/03/01 11:09:19 by cmalfroy         ###   ########.fr       */
+/*   Created: 2018/03/08 12:28:59 by cmalfroy          #+#    #+#             */
+/*   Updated: 2018/03/08 12:29:00 by cmalfroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#include "pushswap.h"
 
-# include <stdint.h>
-# include <sys/types.h>
-# include <limits.h>
-# include <unistd.h>
-# include <libft.h>
+int 		main(int argc, char **argv)
+{
+	t_list *a;
+	t_list *b;
 
-# include "dlist.h"
-# include "actions.h"
-# include "getinfo.h"
-
-# define TRUE 1
-# define FALSE 0
-
-#endif
+	a = dlstctor();
+	b = dlstctor();
+	if (argc == 1 || !getlist(argc, argv, a))
+	{
+		freeall(a, b);
+		return (ft_retf(NOP, "Error\n"));
+	}
+	freeall(a, b);
+	return (0);
+}

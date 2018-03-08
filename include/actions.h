@@ -15,6 +15,18 @@
 
 # include <dlist.h>
 
+typedef struct s_sort	t_sort;
+
+typedef void	(funcsort)(t_list *a, t_list *b);
+
+struct			s_sort
+{
+	char		*sort;
+	funcsort	*func;
+};
+
+extern void		initsort(t_sort *sort);
+
 extern void		swapa(t_list *a, t_list *b);
 extern void		swapb(t_list *a, t_list *b);
 extern void		swapab(t_list *a, t_list *b);

@@ -13,7 +13,7 @@
 #include "checker.h"
 #define BUF_SIZE 4
 
-static void	initsort(t_sort *sort)
+inline void	initsort(t_sort *sort)
 {
 	sort[0] = (t_sort){ "sa", swapa };
 	sort[1] = (t_sort){ "sb", swapb };
