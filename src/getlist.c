@@ -14,16 +14,14 @@
 
 inline static void	bitset(uint32_t *words, int n)
 {
-	words[n / sizeof(uint32_t) * CHAR_BIT] |= (1 <<
-		n % sizeof(uint32_t) * CHAR_BIT);
+	words[n / (INT_MAX)] |= (1 << n % (INT_MAX));
 }
 
 inline static int	bitget(uint32_t const *words, int n)
 {
 	uint32_t bit;
 
-	bit = words[n / sizeof(uint32_t) * CHAR_BIT] &
-		(1 << n % sizeof(uint32_t) * CHAR_BIT);
+	bit = words[n / (INT_MAX)] & (1 << n % (INT_MAX));
 	return (bit != 0);
 }
 
@@ -31,7 +29,7 @@ inline int			getlist(int ac, char **av, t_list *a)
 {
 	int				i;
 	int64_t			nb;
-	static uint32_t tab[UINT32_MAX / (64 * 64)];
+	static uint32_t tab[UINT32_MAX / (32 * 32)] = { 0 };
 
 	i = 0;
 	while (++i < ac)
