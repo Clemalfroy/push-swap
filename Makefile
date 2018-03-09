@@ -10,134 +10,90 @@
 #                                                                              #
 # **************************************************************************** #
 
-PROJECT ?= checker
-WFLAGS = -Werror -Wextra -Wall
-WWFLAGS = $(WFLAGS) -Wpedantic -Wshadow -Wconversion -Wcast-align \
-  -Wstrict-prototypes -Wmissing-prototypes -Wunreachable-code -Winit-self \
-  -Wmissing-declarations -Wfloat-equal -Wbad-function-cast -Wundef \
-  -Waggregate-return -Wstrict-overflow=5 -Wold-style-definition -Wpadded \
-  -Wredundant-decls -Wall -Werror -Wextra
-RCFLAGS = $(WFLAGS) -O2 -fomit-frame-pointer
-DCFLAGS = $(WFLAGS) -g3 -DDEBUG
-SCFLAGS = -fsanitize=address,undefined -ferror-limit=5 $(DCFLAGS)
-CC ?= gcc
+.PHONY: all, clean, fclean, re
 
-INC_PATH = include
+NAME = checker
+
+NAME2 = push_swap
+
+CC = gcc
+
+CFLAGS = -Wall -Wextra -Werror -g
+
+LIB = libft
+
+LDFLAGS = -Llibft
+
+LDLIBS = -lft
+
 SRC_PATH = src
-OBJ_DIR ?= obj
-OBJ_PATH ?= $(OBJ_DIR)/rel
-3TH_PATH = vendor
 
-LIBS = ft
-ifneq (,$(findstring dev,$(PROJECT)))
-LIB_NAME = $(addsuffix .dev, $(LIBS))
-else ifneq (,$(findstring san,$(PROJECT)))
-LIB_NAME = $(addsuffix .san, $(LIBS))
-else
-LIB_NAME = $(LIBS)
-endif
-3TH_NAME = libft
 SRC_NAME = \
-    checker.c getlist.c dlist.c swaps.c pushs.c rotate.c rrotate.c\
-    dlst2.c\
+    checker.c dlist.c dlst2.c getlist.c pushs.c rotate.c rrotate.c swaps.c \
+    sorting.c
 
-3TH = $(addprefix $(3TH_PATH)/, $(3TH_NAME))
-OBJ = $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
-LNK = $(addprefix -L, $(3TH))
-INC = $(addprefix -I, $(INC_PATH) $(addsuffix /include, $(3TH)))
-LIB = $(addprefix -l, $(LIB_NAME))
-DEP = $(OBJ:%.o=%.d)
+SRC_NAME2 = \
+    pushswap.c dlist.c dlst2.c getlist.c pushs.c rotate.c rrotate.c swaps.c \
+    sorting.c
 
-PRINTF=test $(VERBOSE)$(TRAVIS) || printf
+AR = ar rc
 
-ifneq (,$(findstring dev,$(PROJECT)))
-3DE = $(shell echo "$(3TH_NAME)" | sed -E "s|([\.a-zA-Z]+)|$(3TH_PATH)/\1/\1.dev.a|g")
-else ifneq (,$(findstring san,$(PROJECT)))
-3DE = $(shell echo "$(3TH_NAME)" | sed -E "s|([\.a-zA-Z]+)|$(3TH_PATH)/\1/\1.san.a|g")
-else
-3DE = $(shell echo "$(3TH_NAME)" | sed -E "s|([\.a-zA-Z]+)|$(3TH_PATH)/\1/\1.a|g")
-endif
+INC_LIB = -I libft/include
 
-all:
-ifneq ($(3TH_NAME),)
-	+$(foreach 3th,$(3TH_NAME),$(MAKE) -C $(3TH_PATH)/$(3th) &&) true
-endif
-	@$(PRINTF) "%-20s" "$(PROJECT): exe"
-	+$(MAKE) -j4 $(PROJECT) "CFLAGS = $(RCFLAGS)" "OBJ_PATH = $(OBJ_DIR)/rel"
-	@$(PRINTF) "\r\x1b[20C\x1b[0K\x1b[32m✔\x1b[0m\n"
+CPPFLAGS = -I include
 
-dev:
-ifneq ($(3TH_NAME),)
-	+$(foreach 3th,$(3TH_NAME),$(MAKE) -C $(3TH_PATH)/$(3th) dev &&) true
-endif
-	@$(PRINTF) "%-20s" "$(PROJECT).dev: exe"
-	+$(MAKE) -j4 $(PROJECT).dev "PROJECT = $(PROJECT).dev" "CFLAGS = $(DCFLAGS)" \
-	  "OBJ_PATH = $(OBJ_DIR)/dev"
-	@$(PRINTF) "\r\x1b[20C\x1b[0K\x1b[32m✔\x1b[0m\n"
+OBJ_PATH = obj
 
-san:
-ifneq ($(3TH_NAME),)
-	+$(foreach 3th,$(3TH_NAME),$(MAKE) -C $(3TH_PATH)/$(3th) san &&) true
-endif
-	@$(PRINTF) "%-20s" "$(PROJECT).san: exe"
-	+$(MAKE) -j4 $(PROJECT).san "PROJECT = $(PROJECT).san" "CFLAGS = $(SCFLAGS)" \
-	  "OBJ_PATH = $(OBJ_DIR)/san" "CC = clang"
-	@$(PRINTF) "\r\x1b[20C\x1b[0K\x1b[32m✔\x1b[0m\n"
+OBJ_PATH2 = obj2
 
-mecry:
-ifneq ($(3TH_NAME),)
-	+$(foreach 3th,$(3TH_NAME),$(MAKE) -C $(3TH_PATH)/$(3th) mecry &&) true
-endif
-	@$(PRINTF) "%-20s" "$(PROJECT): make me cry.."
-	+$(MAKE) -j4 $(PROJECT) "CFLAGS = $(WWFLAGS)" "OBJ_PATH = $(OBJ_DIR)/rel"
-	@$(PRINTF) "\r\x1b[20C\x1b[0K\x1b[32m✔\x1b[0m\n"
+OBJ_NAME = $(SRC_NAME:.c=.o)
 
-$(PROJECT): $(3DE) $(OBJ)
-	@$(PRINTF) "\r\x1b[20C\x1b[0K$@"
-	$(CC) $(CFLAGS) $(INC) $(LNK) $(OBJ) $(LIB) -o $(PROJECT)
+OBJ_NAME2 = $(SRC_NAME2:.c=.o)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
-	@$(PRINTF) "\r\x1b[20C\x1b[0K$<"
-	$(CC) $(CFLAGS) $(INC) -MMD -MP -c $< -o $@
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
-$(OBJ_PATH):
-	mkdir -p $(dir $(OBJ))
+SRC2 = $(addprefix $(SRC_PATH)/,$(SRC_NAME2))
+
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+
+OBJ2 = $(addprefix $(OBJ_PATH2)/,$(OBJ_NAME2))
+
+all: $(NAME) $(NAME2)
+
+$(NAME): $(OBJ)
+	@make -C $(LIB)
+	@echo $(NAME) ": Sources compiling..."
+	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+	@echo "Executable "$(NAME)" made"
+
+$(NAME2): $(OBJ2)
+	@make -C $(LIB)
+	@echo $(NAME) ": Sources compiling..."
+	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+	@echo "Executable "$(NAME2)" made"
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@mkdir -p $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_LIB) -o $@ -c $<
+
+$(OBJ_PATH2)/%.o: $(SRC_PATH)/%.c
+	@mkdir -p $(OBJ_PATH2) 2> /dev/null || true
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_LIB) -o $@ -c $<
 
 clean:
-	rm -f $(OBJ) $(DEP)
-	rm -f $(OBJ:$(OBJ_DIR)/rel%=$(OBJ_DIR)/dev%) $(DEP:$(OBJ_DIR)/rel%=$(OBJ_DIR)/dev%)
-	rm -f $(OBJ:$(OBJ_DIR)/rel%=$(OBJ_DIR)/san%) $(DEP:$(OBJ_DIR)/rel%=$(OBJ_DIR)/san%)
-	@$(PRINTF) "%-20s\033[32m✔\033[0m\n" "$(PROJECT): $@"
+	@make fclean -C $(LIB)
+	@rm -f $(OBJ) $(OBJ2)
+	@rm -rf $(OBJ_PATH) || true
+	@rm -rf $(OBJ_PATH2) || true
+	@echo $(OBJ_PATH)" et "$(OBJ_PATH2)" supprimé !"
 
 fclean: clean
-ifneq ($(3TH_NAME),)
-	+$(foreach 3th,$(3TH_NAME),$(MAKE) -C $(3TH_PATH)/$(3th) fclean &&) true
-endif
-	test -d $(OBJ_DIR) && find $(OBJ_DIR) -type d | sort -r | xargs rmdir || true
-	rm -f $(PROJECT){,.san,.dev}
-	@$(PRINTF) "%-20s\033[32m✔\033[0m\n" "$(PROJECT): $@"
+	@rm -f $(NAME) $(NAME2)
+	@echo "Executable de "$(NAME)" et "$(NAME2)" supprimé !"
 
-re: clean all
+re: fclean all
+	@echo "Make re done !"
 
-test: all
-	./test.sh . $(PROJECT)
-
-testdev: dev
-	./test.sh . $(PROJECT).dev
-
-testsan: san
-	./test.sh . $(PROJECT).san
-
-valgrind: dev
-	./valgrind.sh . $(PROJECT).dev
-
--include $(DEP)
-
-ifndef VERBOSE
- ifndef TRAVIS
-.SILENT:
- endif
-endif
-
-.PHONY: all, dev, san, mecry, $(PROJECT), clean, fclean, re, test, testdev, \
-  testsan, valgrind
+norme:
+	norminette $(SRC)
+	norminette $(INC_PATH)

@@ -16,16 +16,18 @@ int 		main(int argc, char **argv)
 {
 	t_list *a;
 	t_list *b;
+	int 	nbint;
 
 	if (argc == 1)
 		return (0);
 	a = dlstctor();
 	b = dlstctor();
-	if (!getlist(argc, argv, a))
+	if (!(nbint = getlist(argc, argv, a)))
 	{
 		freeall(a, b);
 		return (ft_retf(NOP, "Error\n"));
 	}
+	sort(a, b, nbint);
 	freeall(a, b);
 	return (0);
 }

@@ -27,6 +27,8 @@ struct			s_sort
 
 extern void		initsort(t_sort *sort);
 
+void			sort(t_list *a, t_list *b, int nb);
+
 extern void		swapa(t_list *a, t_list *b);
 extern void		swapb(t_list *a, t_list *b);
 extern void		swapab(t_list *a, t_list *b);

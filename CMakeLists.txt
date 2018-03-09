@@ -7,7 +7,7 @@ set(checker_INC_DIR ${CMAKE_CURRENT_LIST_DIR}/include)
 set(checker_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
 set(checker_TEST_DIR ${CMAKE_CURRENT_LIST_DIR}/test)
 
-add_subdirectory(vendor/libft)
+add_subdirectory(libft)
 
 set(CMAKE_C_FLAGS "")
 set(CMAKE_C_FLAGS_DEBUG "")

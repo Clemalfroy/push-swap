@@ -13,22 +13,6 @@
 #include "checker.h"
 #define BUF_SIZE 4
 
-inline int	dlstissort(t_list *a, t_list *b)
-{
-	t_list *cpa;
-
-	if (b->next != b)
-		return (FALSE);
-	cpa = a->next;
-	while (cpa->next != a)
-	{
-		if (cpa->nb > cpa->next->nb)
-			return (FALSE);
-		cpa = cpa->next;
-	}
-	return (TRUE);
-}
-
 inline void	initsort(t_sort *sort)
 {
 	sort[0] = (t_sort){ "sa", swapa };
