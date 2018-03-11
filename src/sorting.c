@@ -28,7 +28,7 @@ inline int			dlstissort(t_list *a, t_list *b)
 	return (TRUE);
 }
 
-inline static int	findmin(t_list *a, int *cpt)
+inline static int	findmin(t_list *a, int *cpt, int nb)
 {
 	int i;
 	int min;
@@ -38,11 +38,19 @@ inline static int	findmin(t_list *a, int *cpt)
 	min = cpya->nb;
 	*cpt = 0;
 	i = 0;
-	while (cpya != a && ++i < 5)
+	while (cpya != a && ++i < (nb / 10))
 	{
 		if (cpya->nb < min && (*cpt = i))
 			min = cpya->nb;
 		cpya = cpya->next;
+	}
+	i = 0;
+	cpya = a->prev;
+	while (cpya != a && ++i < (nb / 10))
+	{
+		if (cpya->nb < min && (*cpt = nb - i))
+			min = cpya->nb;
+		cpya = cpya->prev;
 	}
 	return (min);
 }
@@ -62,7 +70,9 @@ void				sort(t_list *a, t_list *b, int nb)
 {
 	int		min;
 	int 	cpt;
+	int 	nbnb;
 
+	nbnb = nb;
 	if (nb == 2 && !dlstissort(a, b))
 	{
 		ft_putl(1, "sa");
@@ -70,7 +80,19 @@ void				sort(t_list *a, t_list *b, int nb)
 	}
 	while (!dlstissort(a, b))
 	{
-		min = findmin(a, &cpt);
-		gotomin(a, b, min, (cpt < (nb-- / 2)));
+		if (a->next == a)
+		{
+			while (b->next != b)
+			{
+				ft_putl(1, "pa");
+				pusha(a, b);
+				nb++;
+			}
+		}
+		else
+		{
+			min = findmin(a, &cpt, nbnb);
+			gotomin(a, b, min, (cpt < (nb-- / 2)));
+		}
 	}
 }
