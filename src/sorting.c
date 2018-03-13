@@ -12,11 +12,28 @@
 
 #include "pushswap.h"
 
-inline int			dlstissort(t_list *a, t_list *b)
+inline void			findextremum(t_list *a, int *min, int *max)
+{
+	t_list		*tmp;
+
+	tmp = a->next;
+	*min = tmp->nb;
+	*max = tmp->nb;
+	while (tmp != a)
+	{
+		if (tmp->nb > *max)
+			*max = tmp->nb;
+		if (tmp->nb < *min)
+			*min = tmp->nb;
+		tmp = tmp->next;
+	}
+}
+
+inline int			dlstissort(t_list *a, t_list *b, int bool)
 {
 	t_list *cpa;
 
-	if (b->next != b)
+	if (b->next != b && !bool)
 		return (FALSE);
 	cpa = a->next;
 	while (cpa->next != a)
@@ -28,71 +45,55 @@ inline int			dlstissort(t_list *a, t_list *b)
 	return (TRUE);
 }
 
-inline static int	findmin(t_list *a, int *cpt, int nb)
+static void		algoa(t_list *a, t_list *b, int nb)
 {
-	int i;
-	int min;
-	t_list *cpya;
+	int 		min;
+	int 		max;
 
-	cpya = a->next;
-	min = cpya->nb;
-	*cpt = 0;
-	i = 0;
-	while (cpya != a && ++i < (nb / 10))
+	findextremum(a, &min, &max);
+	if (!dlstissort(a, b, 1) && a->next->nb == min)
 	{
-		if (cpya->nb < min && (*cpt = i))
-			min = cpya->nb;
-		cpya = cpya->next;
+		pushb(a, b);
+		findextremum(a, &min, &max);
 	}
-	i = 0;
-	cpya = a->prev;
-	while (cpya != a && ++i < (nb / 10))
+	else if (!dlstissort(a, b, 1))
 	{
-		if (cpya->nb < min && (*cpt = nb - i))
-			min = cpya->nb;
-		cpya = cpya->prev;
+		findextremum(a, &min, &max);
+		if (nb <= 4)
+			littlesort(a, b, min, max);
+		else
+			normalsort(a, b, min ,max);
 	}
-	return (min);
 }
 
-inline static void	gotomin(t_list *a, t_list *b, int min, int bool)
+static void		algob(t_list *a, t_list *b)
 {
-	while (a->next->nb != min)
-	{
-		!bool ? rrotatea(a, b) : rotatea(a, b);
-		!bool ? ft_putl(1, "rra") : ft_putl(1, "ra");
-	}
-	ft_putl(1, "pb");
-	pushb(a, b);
+	int min;
+	int max;
+
+	findextremum(a, &min, &max);
+	if (b->next->nb > a->next->nb)
+		rotatea(a, b);
+	else if (b->next->nb < a->next->nb &&
+		(b->next->nb > a->prev->nb || a->prev->nb == max))
+		pusha(b, a);
+	else
+		rrotatea(a, b);
 }
 
 void				sort(t_list *a, t_list *b, int nb)
 {
-	int		min;
-	int 	cpt;
-	int 	nbnb;
-
-	nbnb = nb;
-	if (nb == 2 && !dlstissort(a, b))
+	if (nb > 9 && !dlstissort(a, b, 1))
+		firstalgo(a, b);
+	else
 	{
-		ft_putl(1, "sa");
-		swapa(a, b);
-	}
-	while (!dlstissort(a, b))
-	{
-		if (a->next == a)
+		while (!dlstissort(a, b, 1))
+			algoa(a, b, nb);
+		while (b->next != b)
+			algob(a, b);
+		while (!dlstissort(a, b, 1))
 		{
-			while (b->next != b)
-			{
-				ft_putl(1, "pa");
-				pusha(a, b);
-				nb++;
-			}
-		}
-		else
-		{
-			min = findmin(a, &cpt, nbnb);
-			gotomin(a, b, min, (cpt < (nb-- / 2)));
+			rrotatea(a, b);
 		}
 	}
 }

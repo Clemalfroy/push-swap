@@ -65,7 +65,7 @@ int			main(int argc, char **argv)
 		freeall(a, b);
 		return (ft_retf(NOP, "Error\n"));
 	}
-	if (dlstissort(a, b))
+	if (dlstissort(a, b, 0))
 		ft_putl(1, "OK");
 	else
 		ft_putl(1, "KO");

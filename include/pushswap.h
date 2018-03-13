@@ -26,4 +26,10 @@
 # define TRUE 1
 # define FALSE 0
 
+typedef struct		s_cmd
+{
+	char			*cmd;
+	struct s_lcmd	*next;
+}					t_cmd;
+
 #endif
