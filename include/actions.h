@@ -17,12 +17,12 @@
 
 typedef struct s_sort	t_sort;
 
-typedef void	(funcsort)(t_list *a, t_list *b);
+typedef void	(t_funcsort)(t_list *a, t_list *b);
 
 struct			s_sort
 {
 	char		*sort;
-	funcsort	*func;
+    t_funcsort	*func;
 };
 
 extern void		initsort(t_sort *sort);
@@ -42,5 +42,8 @@ extern void		rotateb(t_list *a, t_list *b);
 extern void		rrotateb(t_list *a, t_list *b);
 extern void		rotateab(t_list *a, t_list *b);
 extern void		rrotateab(t_list *a, t_list *b);
+
+extern void     getactions(char *actions, t_list *a, t_list *b,
+                           t_funcsort *sort);
 
 #endif
