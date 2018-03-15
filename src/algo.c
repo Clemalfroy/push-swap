@@ -12,134 +12,88 @@
 
 #include "pushswap.h"
 
-void			findextremum(t_list *a, int *min, int *max)
-{
-	t_list		*tmp;
-
-	tmp = a->next;
-	*min = tmp->nb;
-	*max = tmp->nb;
-	while (tmp != a)
-	{
-		if (tmp->nb > *max)
-			*max = tmp->nb;
-		if (tmp->nb < *min)
-			*min = tmp->nb;
-		tmp = tmp->next;
-	}
-}
-
-inline int			dlstissort(t_list *a, t_list *b, int bool)
-{
-	t_list *cpa;
-
-	if (b->next != b && !bool)
-		return (FALSE);
-	cpa = a->next;
-	while (cpa->next != a)
-	{
-		if (cpa->nb > cpa->next->nb)
-			return (FALSE);
-		cpa = cpa->next;
-	}
-	return (TRUE);
-}
-
-static int		searchmin(t_list *a, int nb, int min)
+static int		searchmin(t_list *a, t_stacks *lst)
 {
     t_list	*tmp;
     int		i;
 
     tmp = a->next;
     i = 0;
-    while (tmp->nb != min && ++i)
+    while (tmp->nb != lst->min && ++i)
         tmp = tmp->next;
-    if (i <= nb / 2)
+    if (i <= lst->nb / 2)
         return (1);
     return (0);
 }
 
-static void			normalsort(t_list *a, t_list *b, int nb, int min)
+static void			normalsort(t_stacks *a, t_stacks *b)
 {
-    if (nb < 19 && a->next->nb > a->next->next->nb)
-        getactions("sa", a, b, swapa);
-    else if (searchmin(a, nb, min))
-        getactions("ra", a, b, rotatea);
+    if (a->nb < 19 && a->lst->next->nb > a->lst->next->next->nb)
+        getaction("sa", a, b, swapa);
+    else if (searchmin(a->lst, a))
+        getaction("ra", a, b, rotatea);
     else
-        getactions("rra", a, b, rrotatea);
+        getaction("rra", a, b, rrotatea);
 }
 
-void			littlesort(t_list *a, t_list *b, int min, int max)
+void			littlesort(t_stacks *a, t_stacks *b)
 {
-    if (a->next->nb == min && a->next->next->nb == max)
-        getactions("sa", a, b, swapa);
-    else if ((a->next->nb == min || a->next->nb == max) &&
-             (a->next->next->nb == max || a->next->next->nb == min))
-        getactions("ra", a, b, rotatea);
-    else if (a->next->nb == min && a->prev->nb < a->prev->prev->nb)
-        getactions("rra", a, b, rrotatea);
-    else if (a->next->nb > a->next->next->nb &&
-             (a->next->next->nb != min || a->next->nb != max))
-        getactions("sa", a, b, swapa);
-    else if ((a->next->nb > a->prev->nb && a->next->nb != min))
-        getactions("rra", a, b, rrotatea);
-    else if ((a->next->nb < a->prev->nb && a->next->nb != max))
-        getactions("ra", a, b, rotatea);
-    if (!dlstissort(a, b, 1))
-        littlesort(a, b, min, max);
+    if (a->lst->next->nb == a->min && a->lst->next->next->nb == a->max)
+        getaction("sa", a, b, swapa);
+    else if ((a->lst->next->nb == a->min || a->lst->next->nb == a->max) &&
+             (a->lst->next->next->nb == a->max || a->lst->next->next->nb == a->min))
+        getaction("ra", a, b, rotatea);
+    else if (a->lst->next->nb == a->min && a->lst->prev->nb < a->lst->prev->prev->nb)
+        getaction("rra", a, b, rrotatea);
+    else if (a->lst->next->nb > a->lst->next->next->nb &&
+             (a->lst->next->next->nb != a->min || a->lst->next->nb != a->max))
+        getaction("sa", a, b, swapa);
+    else if ((a->lst->next->nb > a->lst->prev->nb && a->lst->next->nb != a->min))
+        getaction("rra", a, b, rrotatea);
+    else if ((a->lst->next->nb < a->lst->prev->nb && a->lst->next->nb != a->max))
+        getaction("ra", a, b, rotatea);
+    if (!dlstissort(a->lst, b->lst, 1))
+        littlesort(a, b);
 }
 
-void	pushtwob(t_list *a, t_list *b)
+void	pushtwob(t_stacks *a, t_stacks *b)
 {
-    getactions("pb", a, b, pushb);
-    getactions("pb", a, b, pushb);
-	if (b->next->nb < b->next->next->nb)
-		swapb(a, b);
+    getaction("pb", a, b, pushb);
+    getaction("pb", a, b, pushb);
+	if (b->lst->next->nb < b->lst->next->next->nb)
+        getaction("sb", a, b, swapb);
 }
 
-static void		algoa(t_list *a, t_list *b, int *nb)
+static void		algoa(t_stacks *a, t_stacks *b)
 {
-	int 		min;
-	int 		max;
-
-	findextremum(a, &min, &max);
-	if (!dlstissort(a, b, 1) && a->next->nb == min)
+	if (!dlstissort(a->lst, b->lst, 1) && a->lst->next->nb == a->min)
 	{
-		*nb = *nb - 1;
-        getactions("pb", a, b, pushb);
-		findextremum(a, &min, &max);
+        getaction("pb", a, b, pushb);
 	}
-	else if (!dlstissort(a, b, 1))
+	else if (!dlstissort(a->lst, b->lst, 1))
 	{
-		findextremum(a, &min, &max);
-		if (*nb <= 4)
-			littlesort(a, b, min, max);
+		if (a->nb <= 4)
+			littlesort(a, b);
 		else
-			normalsort(a, b, *nb, min);
+			normalsort(a, b);
 	}
 }
 
-static void		algob(t_list *a, t_list *b, int *nb)
+static void		algob(t_stacks *a, t_stacks *b)
 {
-	int min;
-	int max;
-
-	findextremum(a, &min, &max);
-	if (b->next->nb > a->next->nb)
-        getactions("ra", a, b, rotatea);
-	else if (b->next->nb < a->next->nb &&
-			 (b->next->nb > a->prev->nb || a->prev->nb == max))
+	if (b->lst->next->nb > a->lst->next->nb)
+        getaction("ra", a, b, rotatea);
+	else if (b->lst->next->nb < a->lst->next->nb &&
+			 (b->lst->next->nb > a->lst->prev->nb || a->lst->prev->nb == a->max))
 	{
-		*nb = *nb + 1;
-		getactions("pa", a, b, pusha);
+		getaction("pa", a, b, pusha);
 	}
 	else
-		rrotatea(a, b);
+        getaction("rra", a, b, rrotatea);
 }
 
-void			firstalgo(t_list *a, t_list *b) {
-    //int min;
-    //int max;
+void			firstalgo(t_stacks *a, t_stacks *b) {
+
     pushtwob(a, b);
     /*
 	while (!dlstissort(a, b, 1))
@@ -170,17 +124,25 @@ void			firstalgo(t_list *a, t_list *b) {
 
 void			sort(t_list *a, t_list *b, int nb)
 {
-	if (nb > 9 && !dlstissort(a, b, 1))
-		firstalgo(a, b);
+    t_stacks lsta;
+    t_stacks lstb;
+
+    ft_memset(&lsta, 0, sizeof(t_stacks));
+    ft_memset(&lstb, 0, sizeof(t_stacks));
+    lsta.lst = a;
+    lstb.lst = b;
+    lsta.nb = nb;
+    findextremum(lstb.lst, &lstb);
+    findextremum(lsta.lst, &lsta);
+	if (nb > 9 && !dlstissort(lsta.lst, lstb.lst, 1))
+		firstalgo(&lsta, &lstb);
 	else
 	{
 		while (!dlstissort(a, b, 1))
-			algoa(a, b, &nb);
+			algoa(&lsta, &lstb);
 		while (b->next != b)
-			algob(a, b, &nb);
+            algob(&lsta, &lstb);
 		while (!dlstissort(a, b, 1))
-		{
-            getactions("rra", a, b, rrotatea);
-		}
+            getaction("rra", &lsta, &lstb, rrotatea);
 	}
 }

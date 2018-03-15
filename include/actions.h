@@ -25,6 +25,16 @@ struct			s_sort
     t_funcsort	*func;
 };
 
+typedef struct  s_stacks
+{
+    t_list      *lst;
+
+    int         min;
+    int         max;
+
+    int         nb;
+}               t_stacks;
+
 extern void		initsort(t_sort *sort);
 
 void			sort(t_list *a, t_list *b, int nbina);
@@ -43,7 +53,7 @@ extern void		rrotateb(t_list *a, t_list *b);
 extern void		rotateab(t_list *a, t_list *b);
 extern void		rrotateab(t_list *a, t_list *b);
 
-extern void     getactions(char *actions, t_list *a, t_list *b,
+extern void     getaction(char *actions, t_stacks *a, t_stacks *b,
                            t_funcsort *sort);
 
 #endif

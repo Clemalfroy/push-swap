@@ -30,11 +30,11 @@ SRC_PATH = src
 
 SRC_NAME = \
     checker.c dlist.c dlst2.c getlist.c pushs.c rotate.c rrotate.c swaps.c \
-    algo.c actions.c \
+    algo.c actions.c info.c\
 
 SRC_NAME2 = \
     pushswap.c dlist.c dlst2.c getlist.c pushs.c rotate.c rrotate.c swaps.c \
-    sorting.c
+    algo.c info.c actions.c\
 
 AR = ar rc
 
