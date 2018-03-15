@@ -67,9 +67,7 @@ void	pushtwob(t_stacks *a, t_stacks *b)
 static void		algoa(t_stacks *a, t_stacks *b)
 {
 	if (!dlstissort(a->lst, b->lst, 1) && a->lst->next->nb == a->min)
-	{
         getaction("pb", a, b, pushb);
-	}
 	else if (!dlstissort(a->lst, b->lst, 1))
 	{
 		if (a->nb <= 4)
@@ -92,7 +90,8 @@ static void		algob(t_stacks *a, t_stacks *b)
         getaction("rra", a, b, rrotatea);
 }
 
-void			firstalgo(t_stacks *a, t_stacks *b) {
+void			firstalgo(t_stacks *a, t_stacks *b)
+{
 
     pushtwob(a, b);
     /*
@@ -121,28 +120,40 @@ void			firstalgo(t_stacks *a, t_stacks *b) {
 }*/
 }
 
-
-void			sort(t_list *a, t_list *b, int nb)
+void			rank(t_list *a)
 {
-    t_stacks lsta;
-    t_stacks lstb;
+    t_list		*tmp;
+    t_list		*cpt;
 
-    ft_memset(&lsta, 0, sizeof(t_stacks));
-    ft_memset(&lstb, 0, sizeof(t_stacks));
-    lsta.lst = a;
-    lstb.lst = b;
-    lsta.nb = nb;
-    findextremum(lstb.lst, &lstb);
-    findextremum(lsta.lst, &lsta);
-	if (nb > 9 && !dlstissort(lsta.lst, lstb.lst, 1))
-		firstalgo(&lsta, &lstb);
+    tmp = a->next;
+    while (tmp != a)
+    {
+        tmp->rnk = 1;
+        cpt = a->next;
+        while (cpt != a)
+        {
+            if (cpt->nb < tmp->nb)
+                tmp->rnk++;
+            cpt = cpt->next;
+        }
+        tmp = tmp->next;
+    }
+}
+
+void			sort(t_stacks *lsta, t_stacks *lstb, int nb)
+{
+    rank(lsta->lst);
+    findextremum(lsta->lst, lsta);
+    findextremum(lstb->lst, lstb);
+	if (nb > 9 && !dlstissort(lsta->lst, lstb->lst, 1))
+		firstalgo(lsta, lstb);
 	else
 	{
-		while (!dlstissort(a, b, 1))
-			algoa(&lsta, &lstb);
-		while (b->next != b)
-            algob(&lsta, &lstb);
-		while (!dlstissort(a, b, 1))
-            getaction("rra", &lsta, &lstb, rrotatea);
+		while (!dlstissort(lsta->lst, lstb->lst, 1))
+			algoa(lsta, lstb);
+		while (lstb->lst->next != lstb->lst)
+            algob(lsta, lstb);
+		while (!dlstissort(lsta->lst, lstb->lst, 1))
+            getaction("rra", lsta, lstb, rrotatea);
 	}
 }

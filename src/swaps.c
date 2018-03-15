@@ -22,6 +22,9 @@ inline void	swapa(t_list *a, t_list *b)
 		tmp = a->next->nb;
 		a->next->nb = a->next->next->nb;
 		a->next->next->nb = tmp;
+		tmp = a->next->rnk;
+		a->next->rnk = a->next->next->rnk;
+		a->next->next->rnk = tmp;
 	}
 }
 
@@ -35,6 +38,9 @@ inline void	swapb(t_list *a, t_list *b)
 		tmp = b->next->nb;
 		b->next->nb = b->next->next->nb;
 		b->next->next->nb = tmp;
+		tmp = b->next->rnk;
+		b->next->rnk = b->next->next->rnk;
+		b->next->next->rnk = tmp;
 	}
 }
 

@@ -26,7 +26,7 @@ t_list		*dlstctor(void)
 	return (racine);
 }
 
-inline void	dlstaddbefore(t_list *element, int nb)
+inline void	dlstaddbefore(t_list *element, int nb, int rnk)
 {
 	t_list *new_elem;
 
@@ -37,6 +37,7 @@ inline void	dlstaddbefore(t_list *element, int nb)
 		{
 			ft_memset(new_elem, 0, sizeof(t_list));
 			new_elem->nb = nb;
+			new_elem->rnk = rnk;
 			new_elem->prev = element->prev;
 			new_elem->next = element;
 			element->prev->next = new_elem;
@@ -58,7 +59,7 @@ inline void	dlstrmfirstelem(t_list *racine)
 		dlstrm(racine->next);
 }
 
-inline void	dlstaddafter(t_list *element, int nb)
+inline void	dlstaddafter(t_list *element, int nb, int rnk)
 {
 	t_list *new_elem;
 
@@ -68,6 +69,7 @@ inline void	dlstaddafter(t_list *element, int nb)
 		if (new_elem != NULL)
 		{
 			new_elem->nb = nb;
+			new_elem->rnk = rnk;
 			new_elem->prev = element;
 			new_elem->next = element->next;
 			element->next->prev = new_elem;

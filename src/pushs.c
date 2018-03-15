@@ -16,7 +16,7 @@ inline void	pusha(t_list *a, t_list *b)
 {
 	if (b->next != b)
 	{
-		dlstaddafter(a, b->next->nb);
+		dlstaddafter(a, b->next->nb, b->next->rnk);
 		dlstrmfirstelem(b);
 	}
 }
@@ -25,7 +25,7 @@ inline void	pushb(t_list *a, t_list *b)
 {
 	if (a->next != a)
 	{
-		dlstaddafter(b, a->next->nb);
+		dlstaddafter(b, a->next->nb, a->next->rnk);
 		dlstrmfirstelem(a);
 	}
 }

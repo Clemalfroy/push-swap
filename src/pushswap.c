@@ -14,9 +14,11 @@
 
 int 		main(int argc, char **argv)
 {
-	t_list *a;
-	t_list *b;
-	int 	nbint;
+	t_list		*a;
+	t_list		*b;
+	int			nbint;
+	t_stacks	lsta;
+	t_stacks	lstb;
 
 	if (argc == 1)
 		return (0);
@@ -27,7 +29,12 @@ int 		main(int argc, char **argv)
 		freeall(a, b);
 		return (ft_retf(NOP, "Error\n"));
 	}
-	sort(a, b, nbint);
+	ft_memset(&lsta, 0, sizeof(t_stacks));
+	ft_memset(&lstb, 0, sizeof(t_stacks));
+	lsta.lst = a;
+	lstb.lst = b;
+	lsta.nb = nbint;
+	sort(&lsta, &lstb, nbint);
 	freeall(a, b);
 	return (0);
 }

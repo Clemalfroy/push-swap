@@ -37,7 +37,7 @@ typedef struct  s_stacks
 
 extern void		initsort(t_sort *sort);
 
-void			sort(t_list *a, t_list *b, int nbina);
+void			sort(t_stacks *a, t_stacks *b, int nbina);
 
 extern void		swapa(t_list *a, t_list *b);
 extern void		swapb(t_list *a, t_list *b);

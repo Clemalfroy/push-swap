@@ -17,7 +17,7 @@ inline void	rrotatea(t_list *a, t_list *b)
 	(void)b;
 	if (a->prev != a)
 	{
-		dlstaddafter(a, a->prev->nb);
+		dlstaddafter(a, a->prev->nb, a->prev->rnk);
 		dlstrm(a->prev);
 	}
 }
@@ -27,7 +27,7 @@ inline void	rrotateb(t_list *a, t_list *b)
 	(void)a;
 	if (b->prev != b)
 	{
-		dlstaddafter(b, b->prev->nb);
+		dlstaddafter(b, b->prev->nb, b->prev->rnk);
 		dlstrm(b->prev);
 	}
 }
