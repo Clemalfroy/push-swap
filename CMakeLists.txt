@@ -13,7 +13,7 @@ set(CMAKE_C_FLAGS "")
 set(CMAKE_C_FLAGS_DEBUG "")
 set(CMAKE_C_FLAGS_RELEASE "")
 
-set(checker_HDR ${checker_INC_DIR} src/actions.c)
+set(checker_HDR ${checker_INC_DIR})
 file(GLOB_RECURSE checker_HDRS ${checker_HDRS} ${checker_INC_DIR}/*.h)
 file(GLOB_RECURSE checker_SRCS ${checker_SRCS} ${checker_SRC_DIR}/*.c)
 file(GLOB_RECURSE checker_SRCS ${checker_SRCS} ${checker_SRC_DIR}/*.h)

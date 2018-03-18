@@ -32,12 +32,12 @@ typedef struct  s_stacks
     int         min;
     int         max;
 
-    int         nb;
+    int         nbr;
 }               t_stacks;
 
 extern void		initsort(t_sort *sort);
 
-void			sort(t_stacks *a, t_stacks *b, int nbina);
+void			sort(t_stacks *a, t_stacks *b);
 
 extern void		swapa(t_list *a, t_list *b);
 extern void		swapb(t_list *a, t_list *b);

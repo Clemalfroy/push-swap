@@ -17,7 +17,7 @@ inline void	rotatea(t_list *a, t_list *b)
 	(void)b;
 	if (a->next != a)
 	{
-		dlstaddbefore(a, a->next->nb, a->next->rnk);
+		dlstaddbefore(a, a->next->nb);
 		dlstrm(a->next);
 	}
 }
@@ -27,7 +27,7 @@ inline void	rotateb(t_list *a, t_list *b)
 	(void)a;
 	if (b->next != b)
 	{
-		dlstaddbefore(b, b->next->nb, b->next->rnk);
+		dlstaddbefore(b, b->next->nb);
 		dlstrm(b->next);
 	}
 }

@@ -20,7 +20,6 @@ typedef struct s_list	t_list;
 struct			s_list
 {
 	int			nb;
-    int         rnk;
 	t_list		*next;
 	t_list		*prev;
 };
@@ -29,8 +28,8 @@ t_list			*dlstctor(void);
 extern void		dlstrm(t_list *lst);
 extern void		dlstrmfirstelem(t_list *racine);
 extern void		dlstrmlastelem(t_list *racine);
-extern void		dlstaddbefore(t_list *element, int nb, int rnk);
-extern void		dlstaddafter(t_list *element, int nb, int rnk);
+extern void		dlstaddbefore(t_list *element, int nb);
+extern void		dlstaddafter(t_list *element, int nb);
 void			dlstdtor(t_list **lst);
 
 #endif

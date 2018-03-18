@@ -49,8 +49,8 @@ inline int			getlist(int ac, char **av, t_list *a)
 			bitset(tab, (uint32_t)nb);
 		else
 			return (FALSE);
-		dlstaddbefore(a, (int)nb, 0);
+		dlstaddbefore(a, (int)nb);
 		nbelement++;
 	}
-	return (nbelement);
+	return (TRUE);
 }

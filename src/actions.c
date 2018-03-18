@@ -11,23 +11,18 @@
 /* ************************************************************************** */
 
 #include "actions.h"
-#include "getinfo.h"
 
 inline void getaction(char *actions, t_stacks *a, t_stacks *b, t_funcsort *sort)
 {
-    if (ft_strcmp(actions, "pa"))
+    if (!ft_strcmp(actions, "pa"))
     {
-        findextremum(a->lst, a);
-        findextremum(b->lst, b);
-        a->nb++;
-        b->nb--;
+        a->nbr++;
+        b->nbr--;
     }
-    else if (ft_strcmp(actions, "pb"))
+    else if (!ft_strcmp(actions, "pb"))
     {
-        findextremum(a->lst, a);
-        findextremum(b->lst, b);
-        a->nb--;
-        b->nb++;
+        a->nbr--;
+        b->nbr++;
     }
     ft_putl(1, actions);
     sort(a->lst, b->lst);

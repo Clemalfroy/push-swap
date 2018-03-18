@@ -16,7 +16,6 @@ int 		main(int argc, char **argv)
 {
 	t_list		*a;
 	t_list		*b;
-	int			nbint;
 	t_stacks	lsta;
 	t_stacks	lstb;
 
@@ -24,7 +23,7 @@ int 		main(int argc, char **argv)
 		return (0);
 	a = dlstctor();
 	b = dlstctor();
-	if (!(nbint = getlist(argc, argv, a)))
+	if (!(getlist(argc, argv, a)))
 	{
 		freeall(a, b);
 		return (ft_retf(NOP, "Error\n"));
@@ -33,8 +32,8 @@ int 		main(int argc, char **argv)
 	ft_memset(&lstb, 0, sizeof(t_stacks));
 	lsta.lst = a;
 	lstb.lst = b;
-	lsta.nb = nbint;
-	sort(&lsta, &lstb, nbint);
+	lsta.nbr =  argc - 1;
+	sort(&lsta, &lstb );
 	freeall(a, b);
 	return (0);
 }
