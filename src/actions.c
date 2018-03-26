@@ -14,7 +14,6 @@
 
 inline void getaction(char *actions, t_stacks *a, t_stacks *b, t_funcsort *sort)
 {
-    //read(STDIN_FILENO, NULL, 4096);
     if (!ft_strcmp(actions, "pa"))
     {
         a->nbr++;

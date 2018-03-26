@@ -36,10 +36,8 @@ inline int			getlist(int ac, char **av, t_list *a)
 	int				i;
 	int64_t			nb;
 	static uint32_t tab[UINT32_MAX / 32] = { 0 };
-	int 			nbelement;
 
 	i = 0;
-	nbelement = 0;
 	while (++i < ac)
 	{
 		if (!av[i] || !ft_stris(av[i] + (*av[i] == '+' || *av[i] == '-' ? 1 :
@@ -50,7 +48,6 @@ inline int			getlist(int ac, char **av, t_list *a)
 		else
 			return (FALSE);
 		dlstaddbefore(a, (int)nb);
-		nbelement++;
 	}
 	return (TRUE);
 }

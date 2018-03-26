@@ -120,7 +120,7 @@ void			costsort(t_stacks *a, t_stacks *b)
 		getaction("rrb", a, b, rrotateb);
 	}
 	getaction("pb", a, b, pushb);
-	if (a->nbr == 0)
+	if (a->nbr < 1)
 	{
 		while (b->lst->next->nb != b->max)
 			getaction("rb", a, b, rotateb);
