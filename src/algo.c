@@ -65,6 +65,70 @@ void			selectionsort(t_stacks *a, t_stacks *b)
 	selectionsort(a, b);
 }
 
+int 			computecost(t_stacks *a, t_stacks *b, int *cpta, int *cptb)
+{
+	t_list		*cpya;
+	t_list		*cpyb;
+	int 		cost;
+	int 		i;
+	int			j;
+	int 		value;
+
+	i = 0;
+	cpya = a->lst->next;
+	cost = INT_MAX;
+	value = 0;
+	while ((i += 1) && cpya != a->lst && !(j = 0))
+	{
+		cpyb = b->lst->next;
+		while ((j += 1) && cpyb->nb > cpya->nb)
+			cpyb = cpyb->next;
+		if (((i < a->nbr - i ? i : a->nbr - i) + (j < b->nbr - j ? j : b->nbr - j)) < cost)
+		{
+			cost = (i < a->nbr - i ? i : a->nbr - i) + (j < b->nbr - j ? j : b->nbr - j);
+			*cpta = i;
+			*cptb = j;
+			value = cpya->nb;
+		}
+		cpya = cpya->next;
+	}
+	return (value);
+}
+
+void			costsort(t_stacks *a, t_stacks *b)
+{
+	int 		tomove;
+	int 		i;
+	int 		j;
+
+	if (dlstissort(a->lst, b->lst, 0))
+		return ;
+	tomove = computecost(a, b, &i, &j);
+	findextremum(b->lst, b);
+	while (a->lst->next->nb != tomove)
+		i <= a->nbr / 2 ? getaction("ra", a, b, rotatea) :
+		getaction("rra", a, b, rrotatea);
+	while (42)
+	{
+		if (b->lst->prev->nb > tomove && b->lst->next->nb < tomove)
+			break;
+		if (tomove > b->max && b->lst->next->nb == b->max)
+			break;
+		if (tomove < b->min && b->lst->prev->nb == b->min)
+			break;
+		j <= b->nbr / 2 ? getaction("rb", a, b, rotateb) :
+		getaction("rrb", a, b, rrotateb);
+	}
+	getaction("pb", a, b, pushb);
+	if (a->nbr == 0)
+	{
+		while (b->lst->next->nb != b->max)
+			getaction("rb", a, b, rotateb);
+		selectionsort(a, b);
+	}
+	costsort(a, b);
+}
+
 void			sort(t_stacks *lsta, t_stacks *lstb)
 {
 	if (!dlstissort(lsta->lst, lstb->lst, 0))
@@ -74,7 +138,9 @@ void			sort(t_stacks *lsta, t_stacks *lstb)
 			getaction("sa", lsta, lstb, swapa) : 0;
 		else if (lsta->nbr == 3)
 			tinysort(lsta, lstb);
-		else if (lsta->nbr < 4500)
+		else if (lsta->nbr <= 45)
 			selectionsort(lsta, lstb);
+		else
+			costsort(lsta, lstb);
 	}
 }
