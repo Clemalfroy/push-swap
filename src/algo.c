@@ -108,14 +108,10 @@ void			costsort(t_stacks *a, t_stacks *b)
 	while (a->lst->next->nb != tomove)
 		i <= a->nbr / 2 ? getaction("ra", a, b, rotatea) :
 		getaction("rra", a, b, rrotatea);
-	while (42)
+	while ((b->lst->prev->nb <= tomove || b->lst->next->nb >= tomove)
+		   && (tomove <= b->max || b->lst->next->nb != b->max)
+		   && (tomove >= b->min || b->lst->prev->nb != b->min))
 	{
-		if (b->lst->prev->nb > tomove && b->lst->next->nb < tomove)
-			break;
-		if (tomove > b->max && b->lst->next->nb == b->max)
-			break;
-		if (tomove < b->min && b->lst->prev->nb == b->min)
-			break;
 		j <= b->nbr / 2 ? getaction("rb", a, b, rotateb) :
 		getaction("rrb", a, b, rrotateb);
 	}
